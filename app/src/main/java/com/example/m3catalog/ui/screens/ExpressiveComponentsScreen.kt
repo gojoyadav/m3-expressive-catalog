@@ -22,11 +22,11 @@ import androidx.compose.material.icons.rounded.Send
 import androidx.compose.material.icons.rounded.Tune
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExtendedFloatingActionButton
-import androidx.compose.material3.FilledCard
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FloatingActionButton
@@ -301,10 +301,10 @@ private fun CardsShowcaseSection() {
         }
 
         // 2. Filled Card (matches Surface Container Highest for strong visual grouping)
-        FilledCard(
+        Card(
             modifier = Modifier.fillMaxWidth(),
             shape = MaterialTheme.shapes.large,
-            colors = CardDefaults.filledCardColors(
+            colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.surfaceContainerHighest
             )
         ) {
@@ -337,10 +337,10 @@ private fun CardsShowcaseSection() {
 
 @Composable
 private fun FabsShowcaseCard() {
-    FilledCard(
+    Card(
         modifier = Modifier.fillMaxWidth(),
         shape = MaterialTheme.shapes.large,
-        colors = CardDefaults.filledCardColors(
+        colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainerLow
         )
     ) {

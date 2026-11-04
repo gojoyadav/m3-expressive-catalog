@@ -88,3 +88,13 @@
 - **Files Modified:**
   - `app/src/main/java/com/example/m3catalog/ui/components/M3ExpressiveTopBar.kt` (v1.0.1): Corrected `Column(horizontalAlignment = Alignment.CenterVertically)` to `Alignment.CenterHorizontally` to satisfy Kotlin Compose compiler type invariants.
 - **Notes:** Pushing fix to trigger remote CI verification on GitHub Actions.
+
+
+### Entry 005: Jetpack Compose Material 3 Card API Alignment
+- **Timestamp:** 2026-11-04 12:28:30 +05:30
+- **Author:** Elite Android Engineer & Antigravity Assistant
+- **Status:** Complete (100%)
+- **Target:** Alignment of ExpressiveComponentsScreen card composables with androidx.compose.material3.Card.
+- **Files Modified:**
+  - `app/src/main/java/com/example/m3catalog/ui/screens/ExpressiveComponentsScreen.kt` (v1.0.1): Replaced `FilledCard` / `filledCardColors` with `Card` / `CardDefaults.cardColors` to match the Compose Material 3 API specifications.
+- **Notes:** Pushing fix to trigger remote CI verification on GitHub Actions.
