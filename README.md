@@ -91,5 +91,11 @@ If you are an AI assistant, coding agent, or prompt engineer:
 
 ---
 
+## ⚡ Ecosystem & Companion Benchmarks
+
+- **[Pulse Studio (junksidetm/PulseStudio)](https://github.com/junksidetm/PulseStudio):** An open-source A/B benchmark Android application that stress-tests this catalog's Material 3 Expressive specifications in a live audio-mockup environment, contrasting "The AI Way" against real-world Community FOSS implementation patterns (June connected settings, Morphe appearance suites, OLED pure-black themes, and docked media players). We actively encourage cross-repository collaboration and mutual design synthesis!
+
+---
+
 ## 📜 License
 This project is open-source and available under the [Apache 2.0 License](LICENSE).
