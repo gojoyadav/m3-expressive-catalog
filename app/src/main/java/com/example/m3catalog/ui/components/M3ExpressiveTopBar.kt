@@ -38,7 +38,7 @@ fun M3ExpressiveTopBar(
     CenterAlignedTopAppBar(
         modifier = modifier,
         title = {
-            Column(horizontalAlignment = Alignment.CenterVertically) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
                     text = title,
                     style = MaterialTheme.typography.titleLarge,

@@ -78,3 +78,13 @@
   - `app/src/main/java/com/example/m3catalog/ui/screens/TypographyColorScreen.kt` (v1.0.1): Removed unused Divider import.
   - `app/src/main/java/com/example/m3catalog/ui/theme/Theme.kt` (v1.0.1): Added safe nullable Activity casting for edge-to-edge window insets.
 - **Notes:** Pushing changes to trigger remote GitHub Actions CI run.
+
+
+### Entry 004: Alignment Parameter Compiler Fix
+- **Timestamp:** 2026-11-04 12:26:00 +05:30
+- **Author:** Elite Android Engineer & Antigravity Assistant
+- **Status:** Complete (100%)
+- **Target:** Resolution of Column horizontal alignment type mismatch in M3ExpressiveTopBar.
+- **Files Modified:**
+  - `app/src/main/java/com/example/m3catalog/ui/components/M3ExpressiveTopBar.kt` (v1.0.1): Corrected `Column(horizontalAlignment = Alignment.CenterVertically)` to `Alignment.CenterHorizontally` to satisfy Kotlin Compose compiler type invariants.
+- **Notes:** Pushing fix to trigger remote CI verification on GitHub Actions.
