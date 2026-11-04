@@ -98,3 +98,13 @@
 - **Files Modified:**
   - `app/src/main/java/com/example/m3catalog/ui/screens/ExpressiveComponentsScreen.kt` (v1.0.1): Replaced `FilledCard` / `filledCardColors` with `Card` / `CardDefaults.cardColors` to match the Compose Material 3 API specifications.
 - **Notes:** Pushing fix to trigger remote CI verification on GitHub Actions.
+
+
+### Entry 006: Android Lint NewApi Window Attributes Fix
+- **Timestamp:** 2026-11-04 12:31:40 +05:30
+- **Author:** Elite Android Engineer & Antigravity Assistant
+- **Status:** Complete (100%)
+- **Target:** Resolution of Android Lint [NewApi] violation on windowLightNavigationBar.
+- **Files Modified:**
+  - `app/src/main/res/values/themes.xml` (v1.0.1): Removed static XML attributes `windowLightNavigationBar` and `windowLightStatusBar` in favor of dynamic runtime edge-to-edge management via `enableEdgeToEdge()` and `WindowCompat.getInsetsController`, ensuring full backward compatibility on API 26+.
+- **Notes:** Pushing fix to trigger remote CI verification on GitHub Actions.
