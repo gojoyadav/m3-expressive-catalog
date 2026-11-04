@@ -65,3 +65,16 @@
   - `LICENSE` (v1.0.0): Apache 2.0 Open Source license.
   - `gradlew` (v1.0.0): Executable POSIX Gradle wrapper.
 - **Notes:** Ready for remote GitHub publishing and CI verification.
+
+
+### Entry 003: CI Workflow Fix & Unit Test Suite Addition
+- **Timestamp:** 2026-11-04 12:22:00 +05:30
+- **Author:** Elite Android Engineer & Antigravity Assistant
+- **Status:** Complete (100%)
+- **Target:** Resolution of GitHub Actions runner Gradle binary provisioning and addition of Unit Tests.
+- **Files Modified / Created:**
+  - `.github/workflows/ci.yml` (v1.0.1): Integrated `gradle/actions/setup-gradle@v4` with explicit Gradle 8.10.2 version and automated wrapper generation to guarantee clean execution without binary jar checkout issues.
+  - `app/src/test/java/com/example/m3catalog/CatalogViewModelTest.kt` (v1.0.0): Added comprehensive unit tests for `CatalogViewModel` verifying UDF state transitions, navigation, and theme toggling.
+  - `app/src/main/java/com/example/m3catalog/ui/screens/TypographyColorScreen.kt` (v1.0.1): Removed unused Divider import.
+  - `app/src/main/java/com/example/m3catalog/ui/theme/Theme.kt` (v1.0.1): Added safe nullable Activity casting for edge-to-edge window insets.
+- **Notes:** Pushing changes to trigger remote GitHub Actions CI run.

@@ -6,7 +6,6 @@ on:
   pull_request:
     branches: [ "main", "master" ]
 
-# Concurrency to cancel superseded runs
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -26,23 +25,20 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-          cache: 'gradle'
+
+      - name: Set up Gradle 8.10.2
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.10.2'
+
+      - name: Generate Gradle Wrapper Binaries
+        run: gradle wrapper --gradle-version 8.10.2
 
       - name: Grant Execute Permission for Gradlew
-        run: chmod +x gradlew || true
+        run: chmod +x gradlew
 
       - name: Run Android Lint Check
-        run: |
-          if [ -f "./gradlew" ]; then
-            ./gradlew lintDebug --no-daemon --stacktrace
-          else
-            gradle lintDebug --no-daemon --stacktrace
-          fi
+        run: ./gradlew :app:lintDebug --no-daemon --stacktrace
 
       - name: Run Unit Tests
-        run: |
-          if [ -f "./gradlew" ]; then
-            ./gradlew testDebugUnitTest --no-daemon --stacktrace
-          else
-            gradle testDebugUnitTest --no-daemon --stacktrace
-          fi
+        run: ./gradlew :app:testDebugUnitTest --no-daemon --stacktrace
