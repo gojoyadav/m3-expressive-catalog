@@ -1,0 +1,67 @@
+# Project Version History: M3 Expressive Catalog
+
+## Libraries & Tools
+| Library / Tool | Current Version | Description |
+| :--- | :--- | :--- |
+| Android Gradle Plugin (AGP) | 8.7.2 | Android build tools |
+| Kotlin | 2.0.21 | Language runtime |
+| Jetpack Compose BOM | 2024.10.01 | Compose library compatibility manager |
+| Material 3 (Compose) | 1.3.1 | Material Design 3 Expressive UI components & tokens |
+| Navigation Compose | 2.8.3 | In-app screen navigation |
+| Lifecycle Runtime Compose | 2.8.7 | StateFlow & lifecycle-aware state collection |
+| Core KTX | 1.15.0 | Android KTX extensions |
+| Activity Compose | 1.9.3 | Activity entrypoint & edge-to-edge support |
+
+---
+
+## Changelog
+
+### Entry 001: Initial Project Scaffolding & M3 Expressive Theme Engine
+- **Timestamp:** 2026-11-04 11:07:00 +05:30
+- **Author:** Elite Android Engineer & Antigravity Assistant
+- **Status:** Complete (100%)
+- **Target:** Initial release of "M3 Expressive Catalog" Android Studio project.
+- **Files Created:**
+  - `gradle/libs.versions.toml` (v1.0.0): Version Catalog managing all dependencies.
+  - `settings.gradle.kts` (v1.0.0): Project settings and repository resolutions.
+  - `build.gradle.kts` (v1.0.0): Root Gradle build script.
+  - `gradle.properties` (v1.0.0): Memory-optimized Gradle configuration (2048MB heap cap for 4GB RAM environment).
+  - `gradle/wrapper/gradle-wrapper.properties` (v1.0.0): Gradle 8.10.2 wrapper declaration.
+  - `.gitignore` (v1.0.0): Android Studio and build artifact exclusion rules.
+  - `GEMINI.md` (v1.0.0): Foundational workspace and coding mandates.
+  - `Version.md` (v1.0.0): Immutable version tracker.
+  - `.github/workflows/ci.yml` (v1.0.0): Remote verification CI workflow.
+  - `app/build.gradle.kts` (v1.0.0): App module configuration with Compose compiler plugin.
+  - `app/proguard-rules.pro` (v1.0.0): Proguard rules.
+  - `app/src/main/AndroidManifest.xml` (v1.0.0): Manifest configuring edge-to-edge and application metadata.
+  - `app/src/main/res/values/strings.xml` (v1.0.0): Application string resources.
+  - `app/src/main/res/values/themes.xml` (v1.0.0): Edge-to-edge base theme.
+  - `app/src/main/java/com/example/m3catalog/MainActivity.kt` (v1.0.0): Activity entry point with lifecycle-aware state collection.
+  - `app/src/main/java/com/example/m3catalog/ui/theme/Color.kt` (v1.0.0): M3 Expressive color palette including full Surface Container system.
+  - `app/src/main/java/com/example/m3catalog/ui/theme/Shape.kt` (v1.0.0): M3 Expressive corner radii tokens (4dp to 32dp).
+  - `app/src/main/java/com/example/m3catalog/ui/theme/Type.kt` (v1.0.0): M3 Expressive typography hierarchy.
+  - `app/src/main/java/com/example/m3catalog/ui/theme/Theme.kt` (v1.0.0): Light/Dark ColorScheme orchestrator.
+  - `app/src/main/java/com/example/m3catalog/ui/model/CatalogDestination.kt` (v1.0.0): Navigation destination model.
+  - `app/src/main/java/com/example/m3catalog/ui/viewmodel/CatalogViewModel.kt` (v1.0.0): StateFlow-driven architecture.
+  - `app/src/main/java/com/example/m3catalog/ui/screens/HomeScreen.kt` (v1.0.0): Interactive catalog portal.
+  - `app/src/main/java/com/example/m3catalog/ui/screens/TypographyColorScreen.kt` (v1.0.0): Color roles & Canvas tonal visualizer.
+  - `app/src/main/java/com/example/m3catalog/ui/screens/ExpressiveComponentsScreen.kt` (v1.0.0): Expressive buttons, cards, FABs, and sliders.
+  - `app/src/main/java/com/example/m3catalog/ui/screens/AdaptiveLayoutScreen.kt` (v1.0.0): M3 4dp grid, padding, and adaptive layouts.
+  - `app/src/main/java/com/example/m3catalog/ui/components/M3ExpressiveTopBar.kt` (v1.0.0): Expressive scroll-aware top bar.
+  - `app/src/main/java/com/example/m3catalog/ui/components/M3ExpressiveNavigation.kt` (v1.0.0): Adaptive Navigation Bar & Navigation Rail.
+  - `app/src/main/java/com/example/m3catalog/ui/components/BeginnerCalloutCard.kt` (v1.0.0): Educational callout card for Compose concepts.
+- **Notes:** Configured specifically for low-memory constraints with full remote CI verification and zero local heavy builds.
+
+
+### Entry 002: AI Knowledge Base, JSON Ontology, Git Scaffolding & Remote Publishing
+- **Timestamp:** 2026-11-04 11:14:00 +05:30
+- **Author:** Elite Android Engineer & Antigravity Assistant
+- **Status:** Complete (100%)
+- **Target:** Addition of machine-readable specifications and GitHub repository configuration.
+- **Files Created:**
+  - `MATERIAL_3_EXPRESSIVE_SPECIFICATION.md` (v1.0.0): Comprehensive human & AI technical standard synthesizing Material 3 Expressive guidelines, tonal rules, surface containers, shapes, type scales, and Jetpack Compose best practices.
+  - `m3-expressive-knowledge-graph.json` (v1.0.0): Machine-readable JSON schema defining color tokens, shape scales, typography tokens, window size classes, and code generation rules.
+  - `README.md` (v1.0.0): GitHub repository documentation with architecture breakdown, quick-start guide, and AI prompt instructions.
+  - `LICENSE` (v1.0.0): Apache 2.0 Open Source license.
+  - `gradlew` (v1.0.0): Executable POSIX Gradle wrapper.
+- **Notes:** Ready for remote GitHub publishing and CI verification.

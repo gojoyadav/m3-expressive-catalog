@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Material3ExpressiveKnowledgeGraph",
+  "version": "1.0.0",
+  "description": "Structured machine-readable knowledge base of Material 3 Expressive and Jetpack Compose design tokens, components, and architectural rules.",
+  "philosophy": {
+    "name": "Material 3 Expressive",
+    "core_tenets": [
+      "Dynamic Tonal Contrast",
+      "Surface Container Architecture replacing Drop Shadows",
+      "Tactile Expanded Corner Radii (up to 32dp)",
+      "Expressive Tertiary Color Acceleration",
+      "Physics-Driven Motion Schemes"
+    ]
+  },
+  "color_system": {
+    "surface_containers": [
+      { "level": "lowest", "token": "surfaceContainerLowest", "light_hex": "#FFFFFF", "dark_hex": "#0E0E13", "role": "Deepest canvas background" },
+      { "level": "low", "token": "surfaceContainerLow", "light_hex": "#F5F2FA", "dark_hex": "#1B1B21", "role": "Inset cards and search backgrounds" },
+      { "level": "default", "token": "surfaceContainer", "light_hex": "#EFEDF4", "dark_hex": "#1F1F25", "role": "Standard cards and default containers" },
+      { "level": "high", "token": "surfaceContainerHigh", "light_hex": "#EAE7EF", "dark_hex": "#2A292F", "role": "Interactive cards and elevated sheets" },
+      { "level": "highest", "token": "surfaceContainerHighest", "light_hex": "#E4E1E9", "dark_hex": "#35343A", "role": "Modals, dialogs, and floating toolbars" }
+    ],
+    "key_roles": [
+      { "role": "Primary", "description": "High-emphasis brand element", "light_hex": "#4755B6", "dark_hex": "#BCC2FF" },
+      { "role": "Secondary", "description": "Calming supportive accent", "light_hex": "#5B5D72", "dark_hex": "#C4C5DD" },
+      { "role": "Tertiary", "description": "Expressive pop and energetic focal point", "light_hex": "#7A5300", "dark_hex": "#FFBA54" },
+      { "role": "Error", "description": "State feedback and critical alerts", "light_hex": "#BA1A1A", "dark_hex": "#FFB4AB" }
+    ]
+  },
+  "shapes": {
+    "extra_small": { "radius_dp": 4, "use_cases": ["Micro badges", "tags", "text field underline caps"] },
+    "small": { "radius_dp": 8, "use_cases": ["Chips", "assistant tokens", "snackbars"] },
+    "medium": { "radius_dp": 16, "use_cases": ["Standard cards", "small dialogs", "segmented buttons"] },
+    "large": { "radius_dp": 24, "use_cases": ["Expressive cards", "bottom sheets", "navigation drawers"] },
+    "extra_large": { "radius_dp": 32, "use_cases": ["Hero banners", "floating search islands", "prominent cards"] },
+    "pill": { "radius_percent": 50, "use_cases": ["Buttons", "active navigation pills", "FABs"] }
+  },
+  "typography": {
+    "display": {
+      "large": { "font_size_sp": 57, "line_height_sp": 64, "weight": 700, "tracking_sp": -0.25 },
+      "medium": { "font_size_sp": 45, "line_height_sp": 52, "weight": 700, "tracking_sp": 0.0 },
+      "small": { "font_size_sp": 36, "line_height_sp": 44, "weight": 600, "tracking_sp": 0.0 }
+    },
+    "headline": {
+      "large": { "font_size_sp": 32, "line_height_sp": 40, "weight": 600, "tracking_sp": 0.0 },
+      "medium": { "font_size_sp": 28, "line_height_sp": 36, "weight": 600, "tracking_sp": 0.0 },
+      "small": { "font_size_sp": 24, "line_height_sp": 32, "weight": 500, "tracking_sp": 0.0 }
+    },
+    "title": {
+      "large": { "font_size_sp": 22, "line_height_sp": 28, "weight": 600, "tracking_sp": 0.0 },
+      "medium": { "font_size_sp": 16, "line_height_sp": 24, "weight": 500, "tracking_sp": 0.15 },
+      "small": { "font_size_sp": 14, "line_height_sp": 20, "weight": 500, "tracking_sp": 0.1 }
+    },
+    "body": {
+      "large": { "font_size_sp": 16, "line_height_sp": 24, "weight": 400, "tracking_sp": 0.5 },
+      "medium": { "font_size_sp": 14, "line_height_sp": 20, "weight": 400, "tracking_sp": 0.25 },
+      "small": { "font_size_sp": 12, "line_height_sp": 16, "weight": 400, "tracking_sp": 0.4 }
+    },
+    "label": {
+      "large": { "font_size_sp": 14, "line_height_sp": 20, "weight": 600, "tracking_sp": 0.1 },
+      "medium": { "font_size_sp": 12, "line_height_sp": 16, "weight": 500, "tracking_sp": 0.5 },
+      "small": { "font_size_sp": 11, "line_height_sp": 16, "weight": 500, "tracking_sp": 0.5 }
+    }
+  },
+  "layout": {
+    "baseline_grid_dp": 4,
+    "spacing_scale_dp": [4, 8, 12, 16, 24, 32, 48, 64],
+    "window_size_classes": {
+      "compact": { "max_width_dp": 600, "nav_type": "NavigationBar", "columns": 4, "margin_dp": 16 },
+      "medium": { "min_width_dp": 600, "max_width_dp": 840, "nav_type": "NavigationRail", "columns": 8, "margin_dp": 24 },
+      "expanded": { "min_width_dp": 840, "nav_type": "NavigationRailOrDrawer", "columns": 12, "margin_dp": 24 }
+    }
+  },
+  "compose_code_generation_rules": {
+    "state_collection": "Use collectAsStateWithLifecycle() from androidx.lifecycle.compose",
+    "theme_access": "Always consume tokens via MaterialTheme.colorScheme, MaterialTheme.typography, MaterialTheme.shapes",
+    "modifier_order": "Size -> Padding -> Interactions/Clickable -> Background/Clip",
+    "elevation": "Assign containerColor to surfaceContainer, surfaceContainerHigh, etc. rather than drop shadows",
+    "performance": "Never allocate objects in DrawScope; hoist state and lambdas outside frequent recomposition scopes"
+  }
+}
