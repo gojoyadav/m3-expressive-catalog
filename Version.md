@@ -229,3 +229,23 @@
   - `app/src/test/java/com/example/m3catalog/CatalogViewModelTest.kt` (v1.2.0): Expanded UDF navigation unit tests verifying state transitions for `MOTION_SHAPES` and `KOTLIN_LAB`.
   - `app/build.gradle.kts` (v1.2.0): Incremented versionCode to 3 and versionName to "1.2.0".
 - **Notes:** Pushing signed commit and tag v1.2.0 across GitHub, GitLab, and Codeberg mirrors, and updating upstream pull request to gojoyadav.
+
+
+
+### Entry 015: Permanent Signing Keystore Architecture, True Adaptive Icon Layering & Obtainium Update Fix
+- **Timestamp:** 2026-11-06 02:12:00 +05:30
+- **Author:** Elite Android Engineer & Antigravity Assistant
+- **Status:** Complete (100%)
+- **Target:** Resolution of Obtainium signature mismatch update failure and true Android Adaptive Icon implementation with calibrated 66px safe zone.
+- **Root Causes Diagnosed & Fixed:**
+  - **Obtainium Signature Mismatch:** Ephemeral GitHub Actions runners previously generated a randomized `debug.keystore` on every build run, changing the APK signing certificate hash and causing Android `INSTALL_FAILED_UPDATE_INCOMPATIBLE`. Resolved by configuring permanent production keystore architecture (`signingConfigs.create("release")` with V1 & V2 signing) persisted to the `ci-keystore` branch.
+  - **App Icon Rendering Glitch:** Manifest previously pointed to a raw vector drawable `@drawable/ic_launcher` instead of an official `<adaptive-icon>` XML. Modern Android launchers (API 26+) require `<adaptive-icon>` with separate `<background>` and `<foreground>` layers; otherwise, the launcher wraps the icon inside a forced white circle plate and scales it down to 60%. Resolved by defining true 108dp background radial gradient and 66px safe-area foreground layers in `res/mipmap-anydpi-v26/ic_launcher.xml`.
+- **Files Modified / Created:**
+  - `app/src/main/res/drawable/ic_launcher_background.xml` (v1.0.0): Full-bleed 108dp base fill and radial gradient background.
+  - `app/src/main/res/drawable/ic_launcher_foreground.xml` (v1.0.0): Foreground layer containing the two expressive orange shapes and central black emblem calibrated to the 66px safe area.
+  - `app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml` (v1.0.0): Official Adaptive Icon declaration.
+  - `app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml` (v1.0.0): Adaptive Icon round declaration.
+  - `app/src/main/AndroidManifest.xml` (v1.0.2): Restored `@mipmap/ic_launcher` and `@mipmap/ic_launcher_round` references.
+  - `app/build.gradle.kts` (v1.2.1): Integrated `signingConfigs.create("release")` with V1 and V2 APK signing schemes and debug fallback.
+  - `.github/workflows/release.yml` (v1.2.0): Automated permanent keystore generation and reuse via `ci-keystore` branch, building production signed release APKs (`assembleRelease`).
+- **Notes:** Pushing signed commit and tag v1.2.0 across all mirror platforms and triggering remote production signed APK build.
