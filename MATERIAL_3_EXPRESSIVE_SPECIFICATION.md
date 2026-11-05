@@ -212,3 +212,29 @@ When an AI system is asked to produce Jetpack Compose code compliant with Materi
    - Hoist state outside loops.
    - Use `derivedStateOf` for derived calculations.
    - Never allocate objects inside `Canvas` or `drawWithContent` blocks.
+
+
+---
+
+## 8. Community FOSS Archetypes & Applied Benchmarks (Pulse Studio)
+
+While this specification defines the formal M3 Expressive design tokens and Compose invariants, modern Android applications frequently combine Expressive aesthetics with real-world Community FOSS implementation patterns.
+
+The open-source benchmark project [**Pulse Studio (`junksidetm/PulseStudio`)**](https://github.com/junksidetm/PulseStudio) provides a 1:1 side-by-side shootout evaluating these paradigms in production:
+
+### 8.1 Connected Settings Architecture (`DenserMeerkat/June`)
+- **Container Geometry:** 28dp clipped outer container with 2dp inter-item hairline spacing.
+- **Adaptive Corner Collapse:**
+  - First item: `RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp, bottomStart = 8.dp, bottomEnd = 8.dp)`
+  - Middle items: `RoundedCornerShape(8.dp)`
+  - Last item: `RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp, bottomStart = 28.dp, bottomEnd = 28.dp)`
+- **Spring Touch Feedback:** Corners dynamically morph to 28dp using `spring(dampingRatio = Spring.DampingRatioMediumBouncy)` upon touch press.
+
+### 8.2 OLED Deep Dark Surfaces (`MorpheApp/morphe-manager`)
+- Surface Container Lowest drops to pitch-black `#000000` to maximize OLED power efficiency, paired with `#121214` inset containers and subtle 1dp `outlineVariant` boundaries.
+
+### 8.3 Persistent Docked Mini-Player (`cromaguy/Rhythm`)
+- Docked audio playback controller with continuous 2dp linear progress bar and 16dp corner radiuses.
+
+### 8.4 Zero-Allocation Mathematical Waveforms
+- Harmonic temporal multipliers restricted to integer multiples combined with Hanning window dampening envelopes to guarantee zero frame hitches across infinite loop repetitions in native Compose `Canvas`.

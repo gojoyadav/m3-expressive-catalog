@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Material3ExpressiveKnowledgeGraph",
-  "version": "1.0.0",
-  "description": "Structured machine-readable knowledge base of Material 3 Expressive and Jetpack Compose design tokens, components, and architectural rules.",
+  "version": "1.1.0",
+  "description": "Structured machine-readable knowledge base of Material 3 Expressive and Jetpack Compose design tokens, components, and architectural rules, updated with community FOSS synthesis archetypes.",
   "philosophy": {
     "name": "Material 3 Expressive",
     "core_tenets": [
@@ -10,16 +10,17 @@
       "Surface Container Architecture replacing Drop Shadows",
       "Tactile Expanded Corner Radii (up to 32dp)",
       "Expressive Tertiary Color Acceleration",
-      "Physics-Driven Motion Schemes"
+      "Physics-Driven Motion Schemes",
+      "Community FOSS Synthesis (June Connected Settings, Morphe OLED, Rhythm Docked Player)"
     ]
   },
   "color_system": {
     "surface_containers": [
-      { "level": "lowest", "token": "surfaceContainerLowest", "light_hex": "#FFFFFF", "dark_hex": "#0E0E13", "role": "Deepest canvas background" },
-      { "level": "low", "token": "surfaceContainerLow", "light_hex": "#F5F2FA", "dark_hex": "#1B1B21", "role": "Inset cards and search backgrounds" },
-      { "level": "default", "token": "surfaceContainer", "light_hex": "#EFEDF4", "dark_hex": "#1F1F25", "role": "Standard cards and default containers" },
-      { "level": "high", "token": "surfaceContainerHigh", "light_hex": "#EAE7EF", "dark_hex": "#2A292F", "role": "Interactive cards and elevated sheets" },
-      { "level": "highest", "token": "surfaceContainerHighest", "light_hex": "#E4E1E9", "dark_hex": "#35343A", "role": "Modals, dialogs, and floating toolbars" }
+      { "level": "lowest", "token": "surfaceContainerLowest", "light_hex": "#FFFFFF", "dark_hex": "#0E0E13", "oled_hex": "#000000", "role": "Deepest canvas background" },
+      { "level": "low", "token": "surfaceContainerLow", "light_hex": "#F5F2FA", "dark_hex": "#1B1B21", "oled_hex": "#121214", "role": "Inset cards and search backgrounds" },
+      { "level": "default", "token": "surfaceContainer", "light_hex": "#EFEDF4", "dark_hex": "#1F1F25", "oled_hex": "#1A1A1E", "role": "Standard cards and default containers" },
+      { "level": "high", "token": "surfaceContainerHigh", "light_hex": "#EAE7EF", "dark_hex": "#2A292F", "oled_hex": "#24242A", "role": "Interactive cards and elevated sheets" },
+      { "level": "highest", "token": "surfaceContainerHighest", "light_hex": "#E4E1E9", "dark_hex": "#35343A", "oled_hex": "#2E2E36", "role": "Modals, dialogs, and floating toolbars" }
     ],
     "key_roles": [
       { "role": "Primary", "description": "High-emphasis brand element", "light_hex": "#4755B6", "dark_hex": "#BCC2FF" },
@@ -30,11 +31,40 @@
   },
   "shapes": {
     "extra_small": { "radius_dp": 4, "use_cases": ["Micro badges", "tags", "text field underline caps"] },
-    "small": { "radius_dp": 8, "use_cases": ["Chips", "assistant tokens", "snackbars"] },
+    "small": { "radius_dp": 8, "use_cases": ["Chips", "assistant tokens", "snackbars", "connected item inner corners"] },
     "medium": { "radius_dp": 16, "use_cases": ["Standard cards", "small dialogs", "segmented buttons"] },
     "large": { "radius_dp": 24, "use_cases": ["Expressive cards", "bottom sheets", "navigation drawers"] },
     "extra_large": { "radius_dp": 32, "use_cases": ["Hero banners", "floating search islands", "prominent cards"] },
+    "connected_section": { "radius_dp": 28, "inner_spacing_dp": 2, "use_cases": ["June connected settings outer container bounds"] },
     "pill": { "radius_percent": 50, "use_cases": ["Buttons", "active navigation pills", "FABs"] }
+  },
+  "community_archetypes": {
+    "connected_settings": {
+      "origin": "DenserMeerkat/June",
+      "benchmark_reference": "junksidetm/PulseStudio",
+      "container_radius_dp": 28,
+      "inner_spacing_dp": 2,
+      "item_geometry": {
+        "outer_radius_dp": 28,
+        "inner_radius_dp": 8,
+        "pressed_spring_radius_dp": 28,
+        "spring_damping": "Spring.DampingRatioMediumBouncy"
+      }
+    },
+    "docked_mini_player": {
+      "origin": "cromaguy/Rhythm",
+      "benchmark_reference": "junksidetm/PulseStudio",
+      "dock_position": "bottom_above_nav",
+      "progress_indicator": "LinearProgressIndicator (2dp hairline)",
+      "shape": "RoundedCornerShape(16.dp)"
+    },
+    "oled_dark_mode": {
+      "origin": "MorpheApp/morphe-manager",
+      "benchmark_reference": "junksidetm/PulseStudio",
+      "canvas_color": "#000000",
+      "surface_container_low": "#121214",
+      "hairline_contrast_border": "1dp outlineVariant (alpha 0.25)"
+    }
   },
   "typography": {
     "display": {
