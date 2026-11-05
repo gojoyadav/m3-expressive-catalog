@@ -174,3 +174,13 @@
   - `app/src/main/java/com/example/m3catalog/ui/model/CatalogDestination.kt` (v1.2.0): Restored original 4 primary bottom navigation items (`HOME`, `COMPONENTS`, `TYPOGRAPHY_COLOR`, `ADAPTIVE_LAYOUTS`).
   - `app/src/main/java/com/example/m3catalog/ui/screens/ExpressiveComponentsScreen.kt` (v1.2.0): Added interactive sticky category quick-switcher strip at the top, enabling instant switching between the Classic Overview and all 6 dedicated Material 3 guideline hubs.
 - **Notes:** App retains 100% of the original look, feel, and navigation hierarchy while providing immediate access to the full expanded catalog.
+
+
+### Entry 011: Version Bump & Release v1.1.0 Packaging
+- **Timestamp:** 2026-11-05 11:08:00 +05:30
+- **Author:** Elite Android Engineer & Antigravity Assistant
+- **Status:** Complete (100%)
+- **Target:** Version bump to v1.1.0 (versionCode 2) and automated remote APK builder release creation.
+- **Files Modified:**
+  - `app/build.gradle.kts` (v1.1.0): Incremented versionCode to 2 and versionName to "1.1.0".
+- **Notes:** Pushing signed commit and tag v1.1.0 to trigger remote GitHub Actions APK builder.
