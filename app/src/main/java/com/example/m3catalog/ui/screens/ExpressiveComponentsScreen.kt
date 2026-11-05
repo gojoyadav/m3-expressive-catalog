@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Check
@@ -54,32 +56,75 @@ import kotlin.math.roundToInt
 
 /**
  * =========================================================================================
- * EXPRESSIVE COMPONENTS GALLERY
+ * EXPRESSIVE COMPONENTS GALLERY & CATEGORY PORTAL
  * Source of Truth: https://m3.material.io/components
  *
- * This screen demonstrates the modern M3 component suite:
- * - 5 Expressive Button Variants & Filter Chips
- * - 3 Card Types (Elevated, Filled, Outlined) featuring expanded corner curvature
- * - 4 Floating Action Button sizes (Small, Standard, Large, Extended)
- * - Continuous & Discrete Stepped Sliders
- *
- * BEGINNER LESSONS INSIDE:
- * - `remember { mutableStateOf(...) }` for local UI state
- * - How Modifier chaining works (Order matters!)
+ * This screen provides both:
+ * 1. The original classic components overview (Buttons, Cards, FABs, Sliders).
+ * 2. An interactive category switcher to explore the full Material 3 & Expressive guideline hubs.
  * =========================================================================================
  */
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ExpressiveComponentsScreen(
     modifier: Modifier = Modifier
 ) {
-    // -------------------------------------------------------------------------------------
-    // BEGINNER CONCEPT: LOCAL COMPOSABLE STATE WITH remember & mutableStateOf
-    // In Kotlin, a normal variable `var clicks = 0` would be reset to 0 every single time
-    // this composable recomposes (re-runs)!
-    // `remember` tells Compose: "Store this value across recompositions."
-    // `mutableIntStateOf` tells Compose: "Notify me when this value changes so I can redraw!"
-    // -------------------------------------------------------------------------------------
+    val hubCategories = listOf(
+        "Classic Overview",
+        "Actions & Buttons",
+        "Selection & Inputs",
+        "Text Fields & Search",
+        "Containment & Sheets",
+        "Navigation & App Bars",
+        "Feedback & Pickers"
+    )
+    var selectedCategory by remember { mutableStateOf("Classic Overview") }
+
+    Column(modifier = modifier.fillMaxSize()) {
+        // Sticky Category Quick Filter Bar
+        LazyRow(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 6.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            items(hubCategories) { category ->
+                val isSelected = selectedCategory == category
+                FilterChip(
+                    selected = isSelected,
+                    onClick = { selectedCategory = category },
+                    label = { Text(category) },
+                    leadingIcon = if (isSelected) {
+                        {
+                            Icon(
+                                imageVector = Icons.Rounded.Check,
+                                contentDescription = null,
+                                modifier = Modifier.size(16.dp)
+                            )
+                        }
+                    } else null
+                )
+            }
+        }
+
+        // Body Content
+        when (selectedCategory) {
+            "Classic Overview" -> ClassicOverviewGallery()
+            "Actions & Buttons" -> ActionsScreen()
+            "Selection & Inputs" -> SelectionScreen()
+            "Text Fields & Search" -> TextInputScreen()
+            "Containment & Sheets" -> ContainmentScreen()
+            "Navigation & App Bars" -> NavigationScreen()
+            "Feedback & Pickers" -> CommunicationScreen()
+            else -> ClassicOverviewGallery()
+        }
+    }
+}
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun ClassicOverviewGallery(
+    modifier: Modifier = Modifier
+) {
     var localCounter by remember { mutableIntStateOf(0) }
     var continuousSliderValue by remember { mutableFloatStateOf(65f) }
     var discreteSliderValue by remember { mutableFloatStateOf(4f) }
@@ -92,7 +137,7 @@ fun ExpressiveComponentsScreen(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         item {
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = "Expressive Components",
                 style = MaterialTheme.typography.headlineMedium,
@@ -215,34 +260,33 @@ private fun ButtonsShowcaseCard(
                 color = MaterialTheme.colorScheme.primary
             )
 
-            // FlowRow automatically wraps buttons to the next line on smaller screens!
             FlowRow(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                // Filled Button: Highest visual emphasis
+                // Filled Button
                 Button(onClick = onIncrement) {
                     Icon(Icons.Rounded.Add, contentDescription = null, modifier = Modifier.size(18.dp))
                     Spacer(modifier = Modifier.size(6.dp))
                     Text("Filled")
                 }
 
-                // Filled Tonal: Medium-high emphasis using secondary container
+                // Filled Tonal
                 FilledTonalButton(onClick = onIncrement) {
                     Text("Filled Tonal")
                 }
 
-                // Elevated Button: Tonal lift
+                // Elevated Button
                 ElevatedButton(onClick = onIncrement) {
                     Text("Elevated")
                 }
 
-                // Outlined Button: Medium-low emphasis with clean stroke
+                // Outlined Button
                 OutlinedButton(onClick = onIncrement) {
                     Text("Outlined")
                 }
 
-                // Text Button: Lowest emphasis for subtle actions
+                // Text Button
                 TextButton(onClick = onIncrement) {
                     Text("Text")
                 }
@@ -285,10 +329,10 @@ private fun FilterChipsRow(
 @Composable
 private fun CardsShowcaseSection() {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        // 1. Elevated Card (rests on Surface Container Low with soft tonal elevation)
+        // 1. Elevated Card
         ElevatedCard(
             modifier = Modifier.fillMaxWidth(),
-            shape = MaterialTheme.shapes.large // 24dp curve
+            shape = MaterialTheme.shapes.large
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
                 Text("Elevated Card (24dp Curvature)", style = MaterialTheme.typography.titleMedium)
@@ -300,7 +344,7 @@ private fun CardsShowcaseSection() {
             }
         }
 
-        // 2. Filled Card (matches Surface Container Highest for strong visual grouping)
+        // 2. Filled Card
         Card(
             modifier = Modifier.fillMaxWidth(),
             shape = MaterialTheme.shapes.large,
@@ -318,7 +362,7 @@ private fun CardsShowcaseSection() {
             }
         }
 
-        // 3. Outlined Card (delivers crisp 1dp outline with transparent or surface container backing)
+        // 3. Outlined Card
         OutlinedCard(
             modifier = Modifier.fillMaxWidth(),
             shape = MaterialTheme.shapes.large
@@ -360,17 +404,14 @@ private fun FabsShowcaseCard() {
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Small FAB (40dp)
                 SmallFloatingActionButton(onClick = {}) {
                     Icon(Icons.Rounded.Edit, contentDescription = "Edit")
                 }
 
-                // Standard FAB (56dp)
                 FloatingActionButton(onClick = {}) {
                     Icon(Icons.Rounded.Favorite, contentDescription = "Favorite")
                 }
 
-                // Large FAB (96dp) - A signature of M3 Expressive for prominent primary actions!
                 LargeFloatingActionButton(
                     onClick = {},
                     containerColor = MaterialTheme.colorScheme.tertiaryContainer,
@@ -384,7 +425,6 @@ private fun FabsShowcaseCard() {
                 }
             }
 
-            // Extended FAB (combines icon with expressive text label)
             ExtendedFloatingActionButton(
                 onClick = {},
                 icon = { Icon(Icons.Rounded.Send, contentDescription = null) },
@@ -432,7 +472,7 @@ private fun SlidersShowcaseCard(
                 value = discreteValue,
                 onValueChange = onDiscreteChange,
                 valueRange = 1f..5f,
-                steps = 3 // 3 intermediate steps between 1 and 5 (total 5 positions: 1, 2, 3, 4, 5)
+                steps = 3
             )
         }
     }

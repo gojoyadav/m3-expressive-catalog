@@ -20,6 +20,10 @@ import androidx.compose.ui.graphics.vector.ImageVector
  * Each entry holds its route identifier, human-readable title, subtitle, and Material icon.
  * Fully aligned with the 6 functional categories of https://m3.material.io/components
  * plus foundational design system labs.
+ *
+ * Keeps the original 4 bottom navigation tabs (Home, Components, Type & Colors, Adaptive Grid)
+ * for 100% fidelity to the original app experience, with expanded hubs accessible via
+ * Drawer, Home portal, and the Components Category Switcher.
  * =========================================================================================
  */
 enum class CatalogDestination(
@@ -36,19 +40,40 @@ enum class CatalogDestination(
         icon = Icons.Rounded.Home,
         isPrimaryBottomNav = true
     ),
+    COMPONENTS(
+        route = "components",
+        title = "Components",
+        description = "Interactive gallery overview & category guideline hub",
+        icon = Icons.Rounded.Category,
+        isPrimaryBottomNav = true
+    ),
+    TYPOGRAPHY_COLOR(
+        route = "typography_color",
+        title = "Type & Colors",
+        description = "Tonal palettes, surface containers & expressive scale",
+        icon = Icons.Rounded.Palette,
+        isPrimaryBottomNav = true
+    ),
+    ADAPTIVE_LAYOUTS(
+        route = "adaptive_layouts",
+        title = "Adaptive Grid",
+        description = "4dp/8dp spacing, responsive panes & window sizes",
+        icon = Icons.Rounded.ViewQuilt,
+        isPrimaryBottomNav = true
+    ),
     ACTIONS(
         route = "actions",
         title = "Actions & Buttons",
         description = "5 button sizes, split buttons, segmented buttons & FABs",
         icon = Icons.Rounded.TouchApp,
-        isPrimaryBottomNav = true
+        isPrimaryBottomNav = false
     ),
     SELECTION(
         route = "selection",
         title = "Selection & Inputs",
         description = "Checkboxes, radio groups, switches, chips & range sliders",
         icon = Icons.Rounded.Checklist,
-        isPrimaryBottomNav = true
+        isPrimaryBottomNav = false
     ),
     TEXT_INPUT(
         route = "text_input",
@@ -62,7 +87,7 @@ enum class CatalogDestination(
         title = "Containment & Sheets",
         description = "Cards, dialogs, bottom/side sheets, menus & tooltips",
         icon = Icons.Rounded.Layers,
-        isPrimaryBottomNav = true
+        isPrimaryBottomNav = false
     ),
     NAVIGATION(
         route = "navigation",
@@ -76,27 +101,6 @@ enum class CatalogDestination(
         title = "Feedback & Pickers",
         description = "Badges, progress bars, snackbars, date & time pickers",
         icon = Icons.Rounded.Notifications,
-        isPrimaryBottomNav = false
-    ),
-    TYPOGRAPHY_COLOR(
-        route = "typography_color",
-        title = "Type & Colors",
-        description = "Tonal palettes, surface containers & expressive scale",
-        icon = Icons.Rounded.Palette,
-        isPrimaryBottomNav = false
-    ),
-    ADAPTIVE_LAYOUTS(
-        route = "adaptive_layouts",
-        title = "Adaptive Grid",
-        description = "4dp/8dp spacing, responsive panes & window sizes",
-        icon = Icons.Rounded.ViewQuilt,
-        isPrimaryBottomNav = false
-    ),
-    COMPONENTS(
-        route = "components",
-        title = "All Components",
-        description = "Complete gallery overview & legacy quick access",
-        icon = Icons.Rounded.Category,
         isPrimaryBottomNav = false
     )
 }
