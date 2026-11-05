@@ -1,8 +1,6 @@
-# M3 Expressive Catalog 🎨📱
-
-<div align="center">
+<div align="center"> 
 <img src="assests/Material 3 Logo.svg" height="180" target="_blank">
-
+<h1>M3 Expressive Catalog 🎨📱</h1>
 <br>
 
 [![Android CI](https://github.com/gojoyadav/m3-expressive-catalog/actions/workflows/ci.yml/badge.svg)](https://github.com/junksidetm/m3-expressive-catalog/actions/workflows/ci.yml)
