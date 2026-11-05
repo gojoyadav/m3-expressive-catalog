@@ -81,17 +81,18 @@ jobs:
             echo "KEY_ALIAS=m3_release_key" >> $GITHUB_ENV
             echo "KEY_PASSWORD=m3_production_secure_pass" >> $GITHUB_ENV
 
-            # Persist keystore to ci-keystore branch so EVERY subsequent build reuses this exact key forever
-            git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
-            git branch -D ci-keystore 2>/dev/null || true
-            git checkout --orphan ci-keystore
-            git rm -rf . 2>/dev/null || true
-            cp keystore/release.jks release.jks
-            git add release.jks
-            git commit -m "chore(ci): store permanent production signing keystore" || true
-            git push origin ci-keystore || true
-            git checkout -f "$GITHUB_SHA" || true
+            TMP_DIR=$(mktemp -d)
+            git clone --branch ci-keystore "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" "$TMP_DIR" 2>/dev/null || {
+              git init "$TMP_DIR"
+              git -C "$TMP_DIR" checkout --orphan ci-keystore
+            }
+            cp keystore/release.jks "$TMP_DIR/release.jks"
+            git -C "$TMP_DIR" config user.name "github-actions[bot]"
+            git -C "$TMP_DIR" config user.email "github-actions[bot]@users.noreply.github.com"
+            git -C "$TMP_DIR" add release.jks
+            git -C "$TMP_DIR" commit -m "chore(ci): store permanent production signing keystore" || true
+            git -C "$TMP_DIR" push "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" ci-keystore || true
+            rm -rf "$TMP_DIR"
           fi
 
       - name: Build Production Signed APK
