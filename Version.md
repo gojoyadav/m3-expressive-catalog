@@ -275,3 +275,14 @@
   - `app/build.gradle.kts` (v1.3.0): Incremented versionCode to 4 and versionName to "1.3.0".
   - `.github/workflows/release.yml` (v1.3.0): Updated default release tag to v1.3.0.
 - **Notes:** Pushing signed commit and tag v1.3.0 across GitHub, GitLab, and Codeberg mirrors, creating GitHub Release v1.3.0 with permanent production signed APK.
+
+
+
+### Entry 017: Release Artifact Standardization & Single APK Output
+- **Timestamp:** 2026-11-06 02:40:00 +05:30
+- **Author:** Elite Android Engineer & Antigravity Assistant
+- **Status:** Complete (100%)
+- **Target:** Standardization of GitHub Release assets to produce and attach exactly one single production APK (`m3-expressive-catalog.apk`).
+- **Files Modified:**
+  - `.github/workflows/release.yml` (v1.3.1): Removed duplicate `app-release.apk` artifact upload step, standardizing exclusively on `m3-expressive-catalog.apk`.
+- **Notes:** Pushing signed commit across GitHub, GitLab, and Codeberg mirrors, maintaining strict multi-platform synchronization.
