@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Animation
 import androidx.compose.material.icons.rounded.ArrowForward
 import androidx.compose.material.icons.rounded.AutoAwesome
 import androidx.compose.material.icons.rounded.Category
@@ -166,10 +167,32 @@ fun HomeScreen(
             )
         }
 
-        // 9. All Components Overview
+        // 9. Motion Physics & Expressive Shapes
         item {
             CatalogNavigationCard(
-                title = "9. Component Gallery Overview",
+                title = "9. Motion & Shapes",
+                subtitle = "Spring physics tokens (damping/stiffness), 35+ shape scale & morphing.",
+                icon = Icons.Rounded.Animation,
+                accentColor = MaterialTheme.colorScheme.primary,
+                onClick = { onNavigate(CatalogDestination.MOTION_SHAPES) }
+            )
+        }
+
+        // 10. Interactive Kotlin Playground & Tours
+        item {
+            CatalogNavigationCard(
+                title = "10. Kotlin Playground & Lab",
+                subtitle = "Interactive Kotlin code editor with official JetBrains beginner & intermediate tours.",
+                icon = Icons.Rounded.Code,
+                accentColor = MaterialTheme.colorScheme.tertiary,
+                onClick = { onNavigate(CatalogDestination.KOTLIN_LAB) }
+            )
+        }
+
+        // 11. All Components Overview
+        item {
+            CatalogNavigationCard(
+                title = "11. Component Gallery Overview",
                 subtitle = "Combined view and quick reference across components.",
                 icon = Icons.Rounded.Category,
                 accentColor = MaterialTheme.colorScheme.secondary,

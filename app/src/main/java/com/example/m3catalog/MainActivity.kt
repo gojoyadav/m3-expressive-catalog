@@ -28,6 +28,8 @@ import com.example.m3catalog.ui.screens.CommunicationScreen
 import com.example.m3catalog.ui.screens.ContainmentScreen
 import com.example.m3catalog.ui.screens.ExpressiveComponentsScreen
 import com.example.m3catalog.ui.screens.HomeScreen
+import com.example.m3catalog.ui.screens.KotlinPlaygroundScreen
+import com.example.m3catalog.ui.screens.MotionShapesScreen
 import com.example.m3catalog.ui.screens.NavigationScreen
 import com.example.m3catalog.ui.screens.SelectionScreen
 import com.example.m3catalog.ui.screens.TextInputScreen
@@ -149,6 +151,8 @@ fun CatalogApp(
                         CatalogDestination.TYPOGRAPHY_COLOR -> TypographyColorScreen()
                         CatalogDestination.ADAPTIVE_LAYOUTS -> AdaptiveLayoutScreen()
                         CatalogDestination.COMPONENTS -> ExpressiveComponentsScreen()
+                        CatalogDestination.MOTION_SHAPES -> MotionShapesScreen()
+                        CatalogDestination.KOTLIN_LAB -> KotlinPlaygroundScreen()
                     }
                 }
             }

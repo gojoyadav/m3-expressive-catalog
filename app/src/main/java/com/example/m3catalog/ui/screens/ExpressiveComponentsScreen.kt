@@ -75,7 +75,9 @@ fun ExpressiveComponentsScreen(
         "Text Fields & Search",
         "Containment & Sheets",
         "Navigation & App Bars",
-        "Feedback & Pickers"
+        "Feedback & Pickers",
+        "Motion & Shapes",
+        "Kotlin Lab"
     )
     var selectedCategory by remember { mutableStateOf("Classic Overview") }
 
@@ -115,6 +117,8 @@ fun ExpressiveComponentsScreen(
             "Containment & Sheets" -> ContainmentScreen()
             "Navigation & App Bars" -> NavigationScreen()
             "Feedback & Pickers" -> CommunicationScreen()
+            "Motion & Shapes" -> MotionShapesScreen()
+            "Kotlin Lab" -> KotlinPlaygroundScreen()
             else -> ClassicOverviewGallery()
         }
     }
