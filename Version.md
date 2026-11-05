@@ -184,3 +184,15 @@
 - **Files Modified:**
   - `app/build.gradle.kts` (v1.1.0): Incremented versionCode to 2 and versionName to "1.1.0".
 - **Notes:** Pushing signed commit and tag v1.1.0 to trigger remote GitHub Actions APK builder.
+
+
+### Entry 012: Kotlin Compiler Parameter Alignment & Remote APK Release Workflow Enhancement
+- **Timestamp:** 2026-11-05 11:46:00 +05:30
+- **Author:** Elite Android Engineer & Antigravity Assistant
+- **Status:** Complete (100%)
+- **Target:** Fix remote Kotlin compiler errors in Compose screens and enhance GitHub Actions release APK builder.
+- **Files Modified:**
+  - `app/src/main/java/com/example/m3catalog/ui/screens/ActionsScreen.kt` (v1.1.0): Removed invalid `itemVerticalAlignment` parameter from `FlowRow` in Button size scale demonstration.
+  - `app/src/main/java/com/example/m3catalog/ui/screens/SelectionScreen.kt` (v1.1.0): Aligned `SuggestionChip` icon parameter naming from `leadingIcon` to `icon`.
+  - `.github/workflows/release.yml` (v1.1.0): Added workflow artifact upload via `actions/upload-artifact@v4` and enabled `workflow_dispatch` tag targeting for reliable GitHub Release APK asset attachment.
+- **Notes:** Resolves all Kotlin compiler errors reported during remote Gradle build verification.

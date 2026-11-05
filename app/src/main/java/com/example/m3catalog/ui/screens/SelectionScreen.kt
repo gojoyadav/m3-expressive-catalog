@@ -439,7 +439,7 @@ InputChip(
                     SuggestionChip(
                         onClick = {},
                         label = { Text("Near Me") },
-                        leadingIcon = {
+                        icon = {
                             Icon(Icons.Rounded.LocationOn, contentDescription = null, modifier = Modifier.size(18.dp))
                         }
                     )
