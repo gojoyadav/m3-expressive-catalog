@@ -58,6 +58,8 @@ class CatalogViewModelTest {
         assertEquals(CatalogDestination.MOTION_SHAPES, viewModel.uiState.value.currentDestination)
         viewModel.navigateTo(CatalogDestination.KOTLIN_LAB)
         assertEquals(CatalogDestination.KOTLIN_LAB, viewModel.uiState.value.currentDestination)
+        viewModel.navigateTo(CatalogDestination.ABOUT)
+        assertEquals(CatalogDestination.ABOUT, viewModel.uiState.value.currentDestination)
     }
 
     @Test

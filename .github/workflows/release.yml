@@ -6,9 +6,9 @@ on:
   workflow_dispatch:
     inputs:
       tag_name:
-        description: 'Release tag to attach APK to (defaults to v1.2.0)'
+        description: 'Release tag to attach APK to (defaults to v1.3.0)'
         required: false
-        default: 'v1.2.0'
+        default: 'v1.3.0'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -117,6 +117,6 @@ jobs:
           files: |
             release_assets/app-release.apk
             release_assets/m3-expressive-catalog.apk
-          tag_name: ${{ github.event.inputs.tag_name || (github.event_name == 'release' && github.event.release.tag_name) || 'v1.2.0' }}
+          tag_name: ${{ github.event.inputs.tag_name || (github.event_name == 'release' && github.event.release.tag_name) || 'v1.3.0' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -7,6 +7,7 @@ import androidx.compose.material.icons.rounded.Checklist
 import androidx.compose.material.icons.rounded.Code
 import androidx.compose.material.icons.rounded.Explore
 import androidx.compose.material.icons.rounded.Home
+import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material.icons.rounded.Layers
 import androidx.compose.material.icons.rounded.Notifications
 import androidx.compose.material.icons.rounded.Palette
@@ -58,13 +59,20 @@ enum class CatalogDestination(
         title = "Design Lab",
         description = "Tonal palettes, surface containers & expressive scale",
         icon = Icons.Rounded.Palette,
-        isPrimaryBottomNav = true
+        isPrimaryBottomNav = false
     ),
     KOTLIN_LAB(
         route = "kotlin_lab",
         title = "Kotlin Lab",
         description = "Interactive Kotlin Playground & Tour tutorials",
         icon = Icons.Rounded.Code,
+        isPrimaryBottomNav = true
+    ),
+    ABOUT(
+        route = "about",
+        title = "About",
+        description = "Universal About page, developer profile & links",
+        icon = Icons.Rounded.Info,
         isPrimaryBottomNav = true
     ),
     MOTION_SHAPES(

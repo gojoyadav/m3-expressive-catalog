@@ -22,6 +22,7 @@ import com.example.m3catalog.ui.components.M3ExpressiveBottomBar
 import com.example.m3catalog.ui.components.M3ExpressiveDrawerSheet
 import com.example.m3catalog.ui.components.M3ExpressiveTopBar
 import com.example.m3catalog.ui.model.CatalogDestination
+import com.example.m3catalog.ui.screens.AboutScreen
 import com.example.m3catalog.ui.screens.ActionsScreen
 import com.example.m3catalog.ui.screens.AdaptiveLayoutScreen
 import com.example.m3catalog.ui.screens.CommunicationScreen
@@ -153,6 +154,7 @@ fun CatalogApp(
                         CatalogDestination.COMPONENTS -> ExpressiveComponentsScreen()
                         CatalogDestination.MOTION_SHAPES -> MotionShapesScreen()
                         CatalogDestination.KOTLIN_LAB -> KotlinPlaygroundScreen()
+                        CatalogDestination.ABOUT -> AboutScreen(onBack = { onNavigate(CatalogDestination.HOME) })
                     }
                 }
             }
