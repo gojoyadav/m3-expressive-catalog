@@ -286,3 +286,29 @@
 - **Files Modified:**
   - `.github/workflows/release.yml` (v1.3.1): Removed duplicate `app-release.apk` artifact upload step, standardizing exclusively on `m3-expressive-catalog.apk`.
 - **Notes:** Pushing signed commit across GitHub, GitLab, and Codeberg mirrors, maintaining strict multi-platform synchronization.
+
+
+
+### Entry 018: About Page Specification Perfection, Hierarchical Backstack & Release v1.4.0
+- **Timestamp:** 2026-11-06 03:12:00 +05:30
+- **Author:** Elite Android Engineer & Antigravity Assistant
+- **Status:** Complete (100%)
+- **Target:** Full alignment with the Universal About Page specification, hierarchical back navigation ending at Home, bottom bar hub replacement, and release packaging for v1.4.0 (versionCode 5).
+- **Refinements Implemented:**
+  - **Hero Visualizer & 75% App Icon:** Replaced outer circular container with a continuous squircle (`RoundedCornerShape(44.dp)`). The App Icon centers inside the squircle and fills exactly 75% of the space (150dp / 200dp) with breathing room.
+  - **M3 Expressive Bun Shape:** Replaced the 4-leaf clover with the official Material 3 Expressive "Bun" shape on Canvas, floating and oscillating smoothly with infinite ambient motion.
+  - **Dynamic Versioning:** Enabled `buildFeatures { buildConfig = true }` in `app/build.gradle.kts`. The About version pill now dynamically references `BuildConfig.VERSION_NAME`, ensuring automatic updates on every new tag release.
+  - **June Connected Settings ("The Other's Way"):** Synthesized directly from `Pulse Studio`'s `JuneSettingsComponents` with 28dp outer container, 2dp separation, position-aware adaptive corners, spring touch morphing, and vertically centered leading icons.
+  - **In-App License Sheet:** License action now launches an in-app `ModalBottomSheet` displaying the full Apache 2.0 license text without redirecting externally.
+  - **Clean Header & Typography:** Removed the redundant inner "About" top bar and removed the "Production-Grade" text. Developer subtitle updated to solely "Developer", and GitHub action pill connects to the exact repository.
+  - **Hierarchical Back Navigation:** Integrated `BackHandler` and backstack tracking in `CatalogViewModel`. Pressing Back on any screen navigates back through history towards `HOME`; only pressing Back on `HOME` exits the application.
+  - **Bottom Bar Hub Replacement:** Replaced category hubs from bottom navigation, establishing 3 clean primary tabs: Components, Kotlin Lab, and About.
+- **Files Modified:**
+  - `app/src/main/java/com/example/m3catalog/ui/screens/AboutScreen.kt` (v1.1.0): Perfected About page composable.
+  - `app/src/main/java/com/example/m3catalog/ui/viewmodel/CatalogViewModel.kt` (v1.4.0): Added backstack history tracking and `navigateBack()`.
+  - `app/src/main/java/com/example/m3catalog/MainActivity.kt` (v1.5.0): Integrated system `BackHandler` and backstack routing.
+  - `app/src/main/java/com/example/m3catalog/ui/model/CatalogDestination.kt` (v1.5.0): Set `HOME` isPrimaryBottomNav to false and streamlined primary bottom nav.
+  - `app/src/test/java/com/example/m3catalog/CatalogViewModelTest.kt` (v1.4.0): Added unit test verifying backstack navigation ending at Home.
+  - `app/build.gradle.kts` (v1.4.0): Incremented versionCode to 5 and versionName to "1.4.0", enabled `buildConfig = true`.
+  - `.github/workflows/release.yml` (v1.4.0): Updated default tag targeting to v1.4.0.
+- **Notes:** Pushing signed commit and tag v1.4.0 across GitHub, GitLab, and Codeberg mirrors, creating GitHub Release v1.4.0 with permanent production signed APK.

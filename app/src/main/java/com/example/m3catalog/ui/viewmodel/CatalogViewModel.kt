@@ -30,6 +30,7 @@ import kotlinx.coroutines.flow.update
 
 data class CatalogUiState(
     val currentDestination: CatalogDestination = CatalogDestination.HOME,
+    val backStack: List<CatalogDestination> = listOf(CatalogDestination.HOME),
     val isDarkMode: Boolean = false,
     val sliderValue: Float = 42f,
     val counter: Int = 0,
@@ -47,7 +48,40 @@ class CatalogViewModel : ViewModel() {
 
     fun navigateTo(destination: CatalogDestination) {
         _uiState.update { currentState ->
-            currentState.copy(currentDestination = destination)
+            val updatedStack = if (destination == CatalogDestination.HOME) {
+                listOf(CatalogDestination.HOME)
+            } else {
+                currentState.backStack.filter { it != destination } + destination
+            }
+            currentState.copy(
+                currentDestination = destination,
+                backStack = updatedStack
+            )
+        }
+    }
+
+    fun navigateBack(): Boolean {
+        val currentStack = _uiState.value.backStack
+        if (currentStack.size > 1) {
+            val newStack = currentStack.dropLast(1)
+            val previousDestination = newStack.last()
+            _uiState.update { currentState ->
+                currentState.copy(
+                    currentDestination = previousDestination,
+                    backStack = newStack
+                )
+            }
+            return true
+        } else if (_uiState.value.currentDestination != CatalogDestination.HOME) {
+            _uiState.update { currentState ->
+                currentState.copy(
+                    currentDestination = CatalogDestination.HOME,
+                    backStack = listOf(CatalogDestination.HOME)
+                )
+            }
+            return true
+        }
+        return false
         }
     }
 

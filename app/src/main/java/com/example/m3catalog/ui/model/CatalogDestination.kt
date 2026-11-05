@@ -45,7 +45,7 @@ enum class CatalogDestination(
         title = "Home",
         description = "Expressive overview & core design principles",
         icon = Icons.Rounded.Home,
-        isPrimaryBottomNav = true
+        isPrimaryBottomNav = false
     ),
     COMPONENTS(
         route = "components",

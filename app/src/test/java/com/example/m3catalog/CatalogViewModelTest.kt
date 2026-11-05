@@ -9,7 +9,7 @@ import org.junit.Before
 import org.junit.Test
 
 /**
- * Unit tests verifying CatalogViewModel state transitions and UDF architecture across all M3 categories.
+ * Unit tests verifying CatalogViewModel state transitions, backstack history, and UDF architecture.
  */
 class CatalogViewModelTest {
 
@@ -54,12 +54,33 @@ class CatalogViewModelTest {
 
         viewModel.navigateTo(CatalogDestination.COMMUNICATION)
         assertEquals(CatalogDestination.COMMUNICATION, viewModel.uiState.value.currentDestination)
+
         viewModel.navigateTo(CatalogDestination.MOTION_SHAPES)
         assertEquals(CatalogDestination.MOTION_SHAPES, viewModel.uiState.value.currentDestination)
+
         viewModel.navigateTo(CatalogDestination.KOTLIN_LAB)
         assertEquals(CatalogDestination.KOTLIN_LAB, viewModel.uiState.value.currentDestination)
+
         viewModel.navigateTo(CatalogDestination.ABOUT)
         assertEquals(CatalogDestination.ABOUT, viewModel.uiState.value.currentDestination)
+    }
+
+    @Test
+    fun navigateBack_navigatesTowardsHome_andExitsOnlyAtHome() {
+        viewModel.navigateTo(CatalogDestination.COMPONENTS)
+        viewModel.navigateTo(CatalogDestination.ABOUT)
+        assertEquals(CatalogDestination.ABOUT, viewModel.uiState.value.currentDestination)
+
+        val handledAboutToComponents = viewModel.navigateBack()
+        assertTrue(handledAboutToComponents)
+        assertEquals(CatalogDestination.COMPONENTS, viewModel.uiState.value.currentDestination)
+
+        val handledComponentsToHome = viewModel.navigateBack()
+        assertTrue(handledComponentsToHome)
+        assertEquals(CatalogDestination.HOME, viewModel.uiState.value.currentDestination)
+
+        val handledAtHome = viewModel.navigateBack()
+        assertFalse(handledAtHome)
     }
 
     @Test

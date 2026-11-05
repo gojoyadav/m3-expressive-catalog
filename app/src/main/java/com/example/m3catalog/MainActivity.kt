@@ -2,6 +2,7 @@ package com.example.m3catalog
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -74,6 +75,7 @@ class MainActivity : ComponentActivity() {
                     currentDestination = uiState.currentDestination,
                     isDarkMode = uiState.isDarkMode,
                     onNavigate = { destination -> viewModel.navigateTo(destination) },
+                    onNavigateBack = { viewModel.navigateBack() },
                     onToggleDarkMode = { viewModel.toggleDarkMode() }
                 )
             }
@@ -94,10 +96,22 @@ fun CatalogApp(
     currentDestination: CatalogDestination,
     isDarkMode: Boolean,
     onNavigate: (CatalogDestination) -> Unit,
+    onNavigateBack: () -> Unit,
     onToggleDarkMode: () -> Unit
 ) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
+
+    // Back navigation: only exit on HOME; all other screens return towards HOME
+    if (drawerState.isOpen) {
+        BackHandler {
+            scope.launch { drawerState.close() }
+        }
+    } else if (currentDestination != CatalogDestination.HOME) {
+        BackHandler {
+            onNavigateBack()
+        }
+    }
 
     ModalNavigationDrawer(
         drawerState = drawerState,
@@ -154,7 +168,7 @@ fun CatalogApp(
                         CatalogDestination.COMPONENTS -> ExpressiveComponentsScreen()
                         CatalogDestination.MOTION_SHAPES -> MotionShapesScreen()
                         CatalogDestination.KOTLIN_LAB -> KotlinPlaygroundScreen()
-                        CatalogDestination.ABOUT -> AboutScreen(onBack = { onNavigate(CatalogDestination.HOME) })
+                        CatalogDestination.ABOUT -> AboutScreen()
                     }
                 }
             }
