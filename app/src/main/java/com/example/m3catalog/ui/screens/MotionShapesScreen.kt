@@ -146,8 +146,7 @@ fun MotionShapesScreen(
         item {
             Spacer(modifier = Modifier.height(8.dp))
             BeginnerCalloutCard(
-                title = "M3 Expressive Motion & Shapes",
-                concept = "Physics-Driven Springs & Organic Geometry",
+                conceptTitle = "M3 Expressive Motion & Shapes",
                 explanation = "Material 3 Expressive replaces traditional duration-and-easing animations with natural spring physics (damping ratio + stiffness). Combined with 35+ organic shapes, components feel alive, tactile, and immediately responsive to user touch."
             )
         }

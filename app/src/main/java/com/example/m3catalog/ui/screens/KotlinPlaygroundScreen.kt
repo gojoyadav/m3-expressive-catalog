@@ -142,7 +142,7 @@ fun main() {
                 level = "Beginner",
                 summary = "Master Kotlin's single-expression functions, named arguments, and trailing lambda closures used everywhere in Jetpack Compose.",
                 initialCode = """
-fun greet(name: String, role: String = "Engineer") = "Hello ${'$'}name ($role)!"
+fun greet(name: String, role: String = "Engineer") = "Hello ${'$'}name (${'$'}role)!"
 
 fun transformGreeting(name: String, formatter: (String) -> String): String {
     return formatter(name)
@@ -300,8 +300,7 @@ fun main() {
         item {
             Spacer(modifier = Modifier.height(8.dp))
             BeginnerCalloutCard(
-                title = "Interactive Kotlin Playground",
-                concept = "Learn, Edit & Run Kotlin Directly in the App",
+                conceptTitle = "Interactive Kotlin Playground",
                 explanation = "Practice modern Kotlin syntax with live runnable snippets inspired by play.kotlinlang.org. Switch lessons from Beginner basics to Intermediate StateFlow patterns, edit the code, and tap 'Run' to see outputs."
             )
         }
@@ -511,7 +510,6 @@ fun main() {
                         ) {
                             Text("Tour: Extensions", style = MaterialTheme.typography.labelMedium)
                         }
-                    }
                     }
                 }
             }
