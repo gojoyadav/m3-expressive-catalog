@@ -9,7 +9,7 @@ import org.junit.Before
 import org.junit.Test
 
 /**
- * Unit tests verifying CatalogViewModel state transitions and UDF architecture.
+ * Unit tests verifying CatalogViewModel state transitions and UDF architecture across all M3 categories.
  */
 class CatalogViewModelTest {
 
@@ -36,6 +36,24 @@ class CatalogViewModelTest {
 
         viewModel.navigateTo(CatalogDestination.TYPOGRAPHY_COLOR)
         assertEquals(CatalogDestination.TYPOGRAPHY_COLOR, viewModel.uiState.value.currentDestination)
+
+        viewModel.navigateTo(CatalogDestination.ACTIONS)
+        assertEquals(CatalogDestination.ACTIONS, viewModel.uiState.value.currentDestination)
+
+        viewModel.navigateTo(CatalogDestination.SELECTION)
+        assertEquals(CatalogDestination.SELECTION, viewModel.uiState.value.currentDestination)
+
+        viewModel.navigateTo(CatalogDestination.TEXT_INPUT)
+        assertEquals(CatalogDestination.TEXT_INPUT, viewModel.uiState.value.currentDestination)
+
+        viewModel.navigateTo(CatalogDestination.CONTAINMENT)
+        assertEquals(CatalogDestination.CONTAINMENT, viewModel.uiState.value.currentDestination)
+
+        viewModel.navigateTo(CatalogDestination.NAVIGATION)
+        assertEquals(CatalogDestination.NAVIGATION, viewModel.uiState.value.currentDestination)
+
+        viewModel.navigateTo(CatalogDestination.COMMUNICATION)
+        assertEquals(CatalogDestination.COMMUNICATION, viewModel.uiState.value.currentDestination)
     }
 
     @Test
