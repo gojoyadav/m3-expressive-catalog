@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.DarkMode
 import androidx.compose.material.icons.rounded.LightMode
+import androidx.compose.material.icons.rounded.Menu
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -23,7 +24,7 @@ import androidx.compose.ui.Modifier
  * M3 Expressive Guideline:
  * Expressive top bars use clean surface integration without harsh drop shadows.
  * Elevation is communicated via subtle surface tone shifts on scroll.
- * We include an interactive Dark/Light mode toggle to demonstrate live recomposition!
+ * We include an interactive Dark/Light mode toggle and a navigation drawer opener!
  * =========================================================================================
  */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -33,7 +34,8 @@ fun M3ExpressiveTopBar(
     subtitle: String,
     isDarkMode: Boolean,
     onToggleDarkMode: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onOpenDrawer: () -> Unit = {}
 ) {
     CenterAlignedTopAppBar(
         modifier = modifier,
@@ -51,6 +53,15 @@ fun M3ExpressiveTopBar(
                 )
             }
         },
+        navigationIcon = {
+            IconButton(onClick = onOpenDrawer) {
+                Icon(
+                    imageVector = Icons.Rounded.Menu,
+                    contentDescription = "Open navigation drawer",
+                    tint = MaterialTheme.colorScheme.onSurface
+                )
+            }
+        },
         actions = {
             IconButton(onClick = onToggleDarkMode) {
                 Icon(
@@ -61,7 +72,6 @@ fun M3ExpressiveTopBar(
             }
         },
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-            // In M3 Expressive, the top bar rests on surfaceContainer or surface
             containerColor = MaterialTheme.colorScheme.surfaceContainer
         )
     )

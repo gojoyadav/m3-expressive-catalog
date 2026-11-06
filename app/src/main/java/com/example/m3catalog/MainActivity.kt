@@ -2,6 +2,7 @@ package com.example.m3catalog
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -9,20 +10,35 @@ import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.m3catalog.ui.components.M3ExpressiveBottomBar
+import com.example.m3catalog.ui.components.M3ExpressiveDrawerSheet
 import com.example.m3catalog.ui.components.M3ExpressiveTopBar
 import com.example.m3catalog.ui.model.CatalogDestination
+import com.example.m3catalog.ui.screens.AboutScreen
+import com.example.m3catalog.ui.screens.ActionsScreen
 import com.example.m3catalog.ui.screens.AdaptiveLayoutScreen
+import com.example.m3catalog.ui.screens.CommunicationScreen
+import com.example.m3catalog.ui.screens.ContainmentScreen
 import com.example.m3catalog.ui.screens.ExpressiveComponentsScreen
 import com.example.m3catalog.ui.screens.HomeScreen
+import com.example.m3catalog.ui.screens.KotlinPlaygroundScreen
+import com.example.m3catalog.ui.screens.MotionShapesScreen
+import com.example.m3catalog.ui.screens.NavigationScreen
+import com.example.m3catalog.ui.screens.SelectionScreen
+import com.example.m3catalog.ui.screens.TextInputScreen
 import com.example.m3catalog.ui.screens.TypographyColorScreen
 import com.example.m3catalog.ui.theme.M3ExpressiveTheme
 import com.example.m3catalog.ui.viewmodel.CatalogViewModel
+import kotlinx.coroutines.launch
 
 /**
  * =========================================================================================
@@ -59,6 +75,7 @@ class MainActivity : ComponentActivity() {
                     currentDestination = uiState.currentDestination,
                     isDarkMode = uiState.isDarkMode,
                     onNavigate = { destination -> viewModel.navigateTo(destination) },
+                    onNavigateBack = { viewModel.navigateBack() },
                     onToggleDarkMode = { viewModel.toggleDarkMode() }
                 )
             }
@@ -67,7 +84,7 @@ class MainActivity : ComponentActivity() {
 }
 
 /**
- * The master App Composable orchestrating the Scaffold, TopBar, Navigation, and Screens.
+ * The master App Composable orchestrating the Scaffold, TopBar, Navigation, Drawer and Screens.
  *
  * @param currentDestination The currently active screen destination.
  * @param isDarkMode Whether dark mode is toggled on.
@@ -79,43 +96,80 @@ fun CatalogApp(
     currentDestination: CatalogDestination,
     isDarkMode: Boolean,
     onNavigate: (CatalogDestination) -> Unit,
+    onNavigateBack: () -> Unit,
     onToggleDarkMode: () -> Unit
 ) {
-    // Scaffold provides the standard Material structural layout slots:
-    // topBar, bottomBar, floatingActionButton, snackbarHost, and content window insets!
-    Scaffold(
-        topBar = {
-            M3ExpressiveTopBar(
-                title = currentDestination.title,
-                subtitle = "Material 3 Expressive Catalog",
-                isDarkMode = isDarkMode,
-                onToggleDarkMode = onToggleDarkMode
-            )
-        },
-        bottomBar = {
-            M3ExpressiveBottomBar(
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    val scope = rememberCoroutineScope()
+
+    // Back navigation: only exit on HOME; all other screens return towards HOME
+    if (drawerState.isOpen) {
+        BackHandler {
+            scope.launch { drawerState.close() }
+        }
+    } else if (currentDestination != CatalogDestination.HOME) {
+        BackHandler {
+            onNavigateBack()
+        }
+    }
+
+    ModalNavigationDrawer(
+        drawerState = drawerState,
+        drawerContent = {
+            M3ExpressiveDrawerSheet(
                 currentDestination = currentDestination,
-                onNavigate = onNavigate
+                onNavigate = onNavigate,
+                onCloseDrawer = { scope.launch { drawerState.close() } }
             )
         }
-    ) { innerPadding ->
-        // innerPadding accounts for the top app bar height and bottom navigation bar height.
-        // We pass it to Modifier.padding(innerPadding) so content is never obscured!
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-        ) {
-            // Crossfade provides an expressive, fluid crossfade animation between destinations
-            Crossfade(
-                targetState = currentDestination,
-                label = "ScreenTransition"
-            ) { destination ->
-                when (destination) {
-                    CatalogDestination.HOME -> HomeScreen(onNavigate = onNavigate)
-                    CatalogDestination.TYPOGRAPHY_COLOR -> TypographyColorScreen()
-                    CatalogDestination.COMPONENTS -> ExpressiveComponentsScreen()
-                    CatalogDestination.ADAPTIVE_LAYOUTS -> AdaptiveLayoutScreen()
+    ) {
+        // Scaffold provides the standard Material structural layout slots:
+        // topBar, bottomBar, floatingActionButton, snackbarHost, and content window insets!
+        Scaffold(
+            topBar = {
+                M3ExpressiveTopBar(
+                    title = currentDestination.title,
+                    subtitle = "Material 3 Expressive Catalog",
+                    isDarkMode = isDarkMode,
+                    onToggleDarkMode = onToggleDarkMode,
+                    onOpenDrawer = { scope.launch { drawerState.open() } }
+                )
+            },
+            bottomBar = {
+                M3ExpressiveBottomBar(
+                    currentDestination = currentDestination,
+                    onNavigate = onNavigate,
+                    onOpenDrawer = { scope.launch { drawerState.open() } }
+                )
+            }
+        ) { innerPadding ->
+            // innerPadding accounts for the top app bar height and bottom navigation bar height.
+            // We pass it to Modifier.padding(innerPadding) so content is never obscured!
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
+            ) {
+                // Crossfade provides an expressive, fluid crossfade animation between destinations
+                Crossfade(
+                    targetState = currentDestination,
+                    label = "ScreenTransition"
+                ) { destination ->
+                    when (destination) {
+                        CatalogDestination.HOME -> HomeScreen(onNavigate = onNavigate)
+                        CatalogDestination.ACTIONS -> ActionsScreen()
+                        CatalogDestination.SELECTION -> SelectionScreen()
+                        CatalogDestination.TEXT_INPUT -> TextInputScreen()
+                        CatalogDestination.CONTAINMENT -> ContainmentScreen()
+                        CatalogDestination.NAVIGATION -> NavigationScreen()
+                        CatalogDestination.COMMUNICATION -> CommunicationScreen()
+                        CatalogDestination.TYPOGRAPHY_COLOR -> TypographyColorScreen()
+                        CatalogDestination.ADAPTIVE_LAYOUTS -> AdaptiveLayoutScreen()
+                        CatalogDestination.COMPONENTS -> ExpressiveComponentsScreen()
+                        CatalogDestination.MOTION_SHAPES -> MotionShapesScreen()
+                        CatalogDestination.KOTLIN_LAB -> KotlinPlaygroundScreen()
+                        CatalogDestination.ABOUT -> AboutScreen()
+                    }
                 }
             }
         }

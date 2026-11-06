@@ -4,6 +4,11 @@ on:
   release:
     types: [published]
   workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'Release tag to attach APK to (defaults to v1.4.0)'
+        required: false
+        default: 'v1.4.0'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -11,7 +16,7 @@ concurrency:
 
 jobs:
   build-apk:
-    name: Build & Attach APK
+    name: Build & Attach Permanent Signed APK
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
@@ -20,6 +25,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
@@ -38,13 +45,75 @@ jobs:
       - name: Grant Execute Permission for Gradlew
         run: chmod +x gradlew
 
-      - name: Build APK Remotely
-        run: ./gradlew :app:assembleDebug --no-daemon --stacktrace
+      - name: Configure Production Signing Keystore
+        id: setup-keystore
+        run: |
+          mkdir -p keystore
+          if [ -n "${{ secrets.KEYSTORE_BASE64 }}" ]; then
+            echo "Using production keystore from repository secrets."
+            echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > keystore/release.jks
+            echo "KEYSTORE_PATH=${GITHUB_WORKSPACE}/keystore/release.jks" >> $GITHUB_ENV
+            echo "KEYSTORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD }}" >> $GITHUB_ENV
+            echo "KEY_ALIAS=${{ secrets.KEY_ALIAS }}" >> $GITHUB_ENV
+            echo "KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}" >> $GITHUB_ENV
+          elif git ls-remote --exit-code --heads origin ci-keystore >/dev/null 2>&1; then
+            echo "Fetching existing permanent production keystore from origin/ci-keystore branch..."
+            git fetch origin ci-keystore:ci-keystore
+            git show ci-keystore:release.jks > keystore/release.jks
+            echo "KEYSTORE_PATH=${GITHUB_WORKSPACE}/keystore/release.jks" >> $GITHUB_ENV
+            echo "KEYSTORE_PASSWORD=m3_production_secure_pass" >> $GITHUB_ENV
+            echo "KEY_ALIAS=m3_release_key" >> $GITHUB_ENV
+            echo "KEY_PASSWORD=m3_production_secure_pass" >> $GITHUB_ENV
+            echo "Permanent production keystore reused successfully."
+          else
+            echo "Generating permanent 2048-bit RSA production keystore..."
+            keytool -genkeypair -v \
+              -keystore keystore/release.jks \
+              -alias m3_release_key \
+              -keyalg RSA \
+              -keysize 2048 \
+              -validity 10000 \
+              -storepass "m3_production_secure_pass" \
+              -keypass "m3_production_secure_pass" \
+              -dname "CN=M3 Expressive Catalog, OU=Mobile, O=M3Catalog, L=Bangalore, ST=KA, C=IN"
+            echo "KEYSTORE_PATH=${GITHUB_WORKSPACE}/keystore/release.jks" >> $GITHUB_ENV
+            echo "KEYSTORE_PASSWORD=m3_production_secure_pass" >> $GITHUB_ENV
+            echo "KEY_ALIAS=m3_release_key" >> $GITHUB_ENV
+            echo "KEY_PASSWORD=m3_production_secure_pass" >> $GITHUB_ENV
+
+            TMP_DIR=$(mktemp -d)
+            git clone --branch ci-keystore "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" "$TMP_DIR" 2>/dev/null || {
+              git init "$TMP_DIR"
+              git -C "$TMP_DIR" checkout --orphan ci-keystore
+            }
+            cp keystore/release.jks "$TMP_DIR/release.jks"
+            git -C "$TMP_DIR" config user.name "github-actions[bot]"
+            git -C "$TMP_DIR" config user.email "github-actions[bot]@users.noreply.github.com"
+            git -C "$TMP_DIR" add release.jks
+            git -C "$TMP_DIR" commit -m "chore(ci): store permanent production signing keystore" || true
+            git -C "$TMP_DIR" push "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" ci-keystore || true
+            rm -rf "$TMP_DIR"
+          fi
+
+      - name: Build Production Signed APK
+        run: ./gradlew :app:assembleRelease --no-daemon --stacktrace
+
+      - name: Prepare Release APK Artifacts
+        run: |
+          mkdir -p release_assets
+          cp app/build/outputs/apk/release/app-release.apk release_assets/m3-expressive-catalog.apk
+
+      - name: Upload APK as Workflow Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: m3-expressive-catalog
+          path: release_assets/m3-expressive-catalog.apk
+          if-no-files-found: error
 
       - name: Upload APK to Release
-        if: github.event_name == 'release'
         uses: softprops/action-gh-release@v2
         with:
-          files: app/build/outputs/apk/debug/app-debug.apk
+          files: release_assets/m3-expressive-catalog.apk
+          tag_name: ${{ github.event.inputs.tag_name || (github.event_name == 'release' && github.event.release.tag_name) || 'v1.4.0' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

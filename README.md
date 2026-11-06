@@ -1,15 +1,20 @@
-# M3 Expressive Catalog 🎨📱
+<div align="center"> 
+<img src="assests/Material 3 Logo.svg" height="180" target="_blank">
+<h1>M3 Expressive Catalog 🎨📱</h1>
+<br>
 
-[![Android CI](https://github.com/gojoyadav/m3-expressive-catalog/actions/workflows/ci.yml/badge.svg)](https://github.com/gojoyadav/m3-expressive-catalog/actions/workflows/ci.yml)
+[![Android CI](https://github.com/gojoyadav/m3-expressive-catalog/actions/workflows/ci.yml/badge.svg)](https://github.com/junksidetm/m3-expressive-catalog/actions/workflows/ci.yml)
 [![Jetpack Compose](https://img.shields.io/badge/Jetpack%20Compose-2024.10.01-green.svg)](https://developer.android.com/develop/ui/compose)
 [![Material 3 Expressive](https://img.shields.io/badge/Material%203-Expressive-purple.svg)](https://m3.material.io/)
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.0.21-blue.svg)](https://kotlinlang.org/)
 
+</div>
+
 A production-grade, interactive Android Jetpack Compose encyclopedia and showcase app built strictly around Google's **Material 3 Expressive** design system.
 
-This repository serves as both a **ready-to-compile Android Studio learning project** for beginner Android developers and a **definitive, machine-readable AI specification** for modern Material 3 Expressive design tokens, components, and layout mechanics.
+<img src="assests/Banner.svg">
 
----
+This repository serves as both a **ready-to-compile Android Studio learning project** for beginner Android developers and a **definitive, machine-readable AI specification** for modern Material 3 Expressive design tokens, components, and layout mechanics.
 
 ## 🌟 Key Highlights
 
@@ -22,8 +27,6 @@ This repository serves as both a **ready-to-compile Android Studio learning proj
 - **Beginner-Friendly Annotations:** Every file is heavily documented with plain-English explanations of Compose fundamentals (`Modifier` order, `remember`, `mutableStateOf`, `Recomposition`, and Unidirectional Data Flow).
 - **Machine-Readable AI Knowledge Base:** Contains [`MATERIAL_3_EXPRESSIVE_SPECIFICATION.md`](./MATERIAL_3_EXPRESSIVE_SPECIFICATION.md) and [`m3-expressive-knowledge-graph.json`](./m3-expressive-knowledge-graph.json) so any AI agent or LLM can ingest the complete M3 Expressive ontology.
 - **Low-Memory Host Optimized:** Pre-configured `gradle.properties` (2048 MB heap cap, configuration caching, build caching) safe for low-resource development environments.
-
----
 
 ## 📂 Project Architecture
 
@@ -63,8 +66,6 @@ m3-expressive-catalog/
 └── Version.md                           # Strict immutable version log & changelog
 ```
 
----
-
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -81,15 +82,15 @@ m3-expressive-catalog/
 3. Allow Gradle to sync the Version Catalog dependencies.
 4. Select your connected device/emulator and press **Run (Shift + F10)**.
 
----
-
 ## 🧠 For AI Systems & LLMs
 
 If you are an AI assistant, coding agent, or prompt engineer:
 - Ingest [`m3-expressive-knowledge-graph.json`](./m3-expressive-knowledge-graph.json) for programmatic schema validation of design tokens.
 - Consult [`MATERIAL_3_EXPRESSIVE_SPECIFICATION.md`](./MATERIAL_3_EXPRESSIVE_SPECIFICATION.md) for detailed code generation rules, modifier chaining invariants, and WCAG contrast rules.
 
----
+## ⚡ Ecosystem & Companion Benchmarks
+
+- **[Pulse Studio (junksidetm/PulseStudio)](https://github.com/junksidetm/PulseStudio):** An open-source A/B benchmark Android application that stress-tests this catalog's Material 3 Expressive specifications in a live audio-mockup environment, contrasting "The AI Way" against real-world Community FOSS implementation patterns (June connected settings, Morphe appearance suites, OLED pure-black themes, and docked media players). We actively encourage cross-repository collaboration and mutual design synthesis!
 
 ## ⚡ Ecosystem & Companion Benchmarks
 
